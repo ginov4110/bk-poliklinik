@@ -38,7 +38,10 @@
                         <li>
                             <a class="dropdown-item" href="index.php?page=registerPasien">Pendaftaran Pasien</a>
                         </li>
-                        </ul>
+                        <li>
+                            <a class="dropdown-item" href="index.php?page=dokter">Daftar Dokter</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
