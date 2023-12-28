@@ -1,5 +1,8 @@
 <?php
-    include_once("koneksi.php")
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    include_once("koneksi.php");
 ?>
 
 <!doctype html>
@@ -29,28 +32,39 @@
                         <li>
                             <a class="dropdown-item" href="index.php?page=obat">Obat</a>
                         </li>
-                    </ul>
+                        <li>
+                            <a class="dropdown-item" href="index.php?page=periksaPasien">Periksa</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="index.php?page=registerPasien">Pendaftaran Pasien</a>
+                        </li>
+                        </ul>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
-                <?php 
-                    if(!isset($_SESSION['username'])){
-                        
+            <?php
+                if (isset($_SESSION['username'])) {
+                    // Jika pengguna sudah login, tampilkan tombol "Logout"
                 ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=logout">Logout</a>
-                </li>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Logout (<?php echo $_SESSION['username'] ?>)</a>
+                        </li>
+                    </ul>
                 <?php
-                    } else {
+                } else {
+                    // Jika pengguna belum login, tampilkan tombol "Login" dan "Register"
                 ?>
-                    <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=registerUser">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=loginUser">Login</a>
-                </li>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?page=registerUser">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?page=loginUser">Login</a>
+                        </li>
+                    </ul>
                 <?php
-                    }
+                }
                 ?>
             </ul>
         </div>
@@ -64,7 +78,14 @@
     if (isset($_GET['page'])) {
         include($_GET['page'] . ".php");
     } else {
-        echo "<br><h2>Selamat Datang di Sistem Informasi Poliklinik</h2><hr>Silakan Login untuk menggunakan sistem. Jika belum memiliki akun silakan Register terlebih dahulu.";
+        echo "<br><h2>Selamat Datang di Sistem Informasi Poliklinik";
+    
+        if (isset($_SESSION['username'])) {
+            //jika sudah login tampilkan username
+            echo ", " . $_SESSION['username'] . "</h2><hr>";
+        } else {
+            echo "</h2><hr>Silakan Login untuk menggunakan sistem. Jika belum memiliki akun silakan Register terlebih dahulu.";
+        }
     }
     ?>
 </main>
