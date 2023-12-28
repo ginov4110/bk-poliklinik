@@ -1,3 +1,16 @@
+<?php
+    if(isset($_POST['simpan'])){
+        $tambah= mysqli_query($mysqli, "INSERT INTO pasien (nama, alamat, no_ktp, no_hp)
+            VALUES (
+                '". $_POST['nama'] ."',
+                '". $_POST['alamat'] ."',
+                '". $_POST['no_ktp'] ."',
+                '". $_POST['no_hp'] ."',
+            )
+        ");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,20 +30,20 @@
         $initCode= "RM";
         $rmCode= $initCode . sprintf("%03s", $sequence)
     ?>
-    <form action="" method="post">
+    <form action="" method="post" onsubmit="return(validate());">
             <div class="d-flex flex-column">
-                <label class="ms-3 mt-1 me-2" for="namaPasien"><b>Nama Anda</b></label>
-                <input class="form-control namaPasien" type="text" placeholder="Nama Anda" id="namaPasien" aria-label="namaPasien">
+                <label class="ms-3 mt-1 me-2" for="nama"><b>Nama Anda</b></label>
+                <input class="form-control namaPasien" type="text" placeholder="Nama Anda" id="nama" aria-label="namaPasien">
                 <label class="ms-3 mt-1 me-2" for="alamat"><b>Alamat</b></label>
                 <input class="form-control namaPasien" type="text" placeholder="Alamat Anda" id="alamat" aria-label="alamat">
                 <label class="ms-3 mt-1 me-2" for="noKtp"><b>No. KTP</b></label>
-                <input class="form-control namaPasien" type="text" placeholder="Nomor KTP" id="noKtp" aria-label="noKtp">
+                <input class="form-control namaPasien" type="text" placeholder="Nomor KTP" id="no_ktp" aria-label="no_ktp">
                 <label class="ms-3 mt-1 me-2" for="noHp"><b>No. Handphone</b></label>
-                <input class="form-control namaPasien" type="text" placeholder="Nomor Handphone" id="noHp" aria-label="noHp">
+                <input class="form-control namaPasien" type="text" placeholder="Nomor Handphone" id="no_hp" aria-label="no_hp">
                 <label class="ms-3 mt-1 me-2" for="noRm"><b>No. Rekam Medis</b></label>
                 <input class="form-control namaPasien" disabled type="text" value="<?php echo $rmCode?>" id="noRm" aria-label="noRm">
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Kirim</button>
+            <button type="submit" name="simpan" class="btn btn-primary mt-2">Simpan</button>
     </form>
 </body>
 </html>
