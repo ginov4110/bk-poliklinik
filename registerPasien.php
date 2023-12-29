@@ -1,13 +1,22 @@
 <?php
+    include "koneksi.php";
+
+    $auto= mysqli_query($mysqli ,"SELECT no_rm FROM pasien");
+    $data= mysqli_fetch_array($auto);
+    $sequence= (int)substr(1,3);
+    $sequence++;
+    $initCode= "RM";
+    $rmCode= $initCode . sprintf("%03s", $sequence);
+
     if(isset($_POST['simpan'])){
-        $tambah= mysqli_query($mysqli, "INSERT INTO pasien (nama, alamat, no_ktp, no_hp)
-            VALUES (
-                '". $_POST['nama'] ."',
-                '". $_POST['alamat'] ."',
-                '". $_POST['no_ktp'] ."',
-                '". $_POST['no_hp'] ."',
-            )
-        ");
+        $tambah = mysqli_query($mysqli, "INSERT INTO obat (nama,alamat,no_ktp,no_hp,no_rm) 
+                                            VALUES (
+                                                '" . $_POST['nama'] . "',
+                                                '" . $_POST['alamat'] . "',
+                                                '" . $_POST['no_ktp'] . "',
+                                                '" . $_POST['no_hp'] . "',
+                                                '" . $_POST['no_rm'] . "',
+                                            )");
     }
 ?>
 
@@ -22,28 +31,24 @@
 <body>
     <h1 class="mt-4" >Pendaftaran Pasien</h1>
     <h4 class="mt-5" >Mohon isi data-data yang diperlukan</h4>
-    <?php
-        $auto= mysqli_query($mysqli ,"select no_rm from pasien");
-        $data= mysqli_fetch_array($auto);
-        $sequence= (int)substr(1,3);
-        $sequence++;
-        $initCode= "RM";
-        $rmCode= $initCode . sprintf("%03s", $sequence)
-    ?>
-    <form action="" method="post" onsubmit="return(validate());">
+    <form action="" method="POST" onsubmit="return(validate());">
             <div class="d-flex flex-column">
                 <label class="ms-3 mt-1 me-2" for="nama"><b>Nama Anda</b></label>
-                <input class="form-control namaPasien" type="text" placeholder="Nama Anda" id="nama" aria-label="namaPasien">
+                <input class="form-control" name="nama" type="text"  placeholder="Nama Anda" id="nama">
+
                 <label class="ms-3 mt-1 me-2" for="alamat"><b>Alamat</b></label>
-                <input class="form-control namaPasien" type="text" placeholder="Alamat Anda" id="alamat" aria-label="alamat">
-                <label class="ms-3 mt-1 me-2" for="noKtp"><b>No. KTP</b></label>
-                <input class="form-control namaPasien" type="text" placeholder="Nomor KTP" id="no_ktp" aria-label="no_ktp">
-                <label class="ms-3 mt-1 me-2" for="noHp"><b>No. Handphone</b></label>
-                <input class="form-control namaPasien" type="text" placeholder="Nomor Handphone" id="no_hp" aria-label="no_hp">
-                <label class="ms-3 mt-1 me-2" for="noRm"><b>No. Rekam Medis</b></label>
-                <input class="form-control namaPasien" disabled type="text" value="<?php echo $rmCode?>" id="noRm" aria-label="noRm">
+                <input class="form-control" name="alamat" type="text"  placeholder="Alamat Anda" id="alamat">
+
+                <label class="ms-3 mt-1 me-2" " for="noKtp"><b>No. KTP</b></label>
+                <input class="form-control" name="no_ktp" type="text" placeholder="Nomor KTP" id="no_ktp">
+
+                <label class="ms-3 mt-1 me-2"  for="noHp"><b>No. Handphone</b></label>
+                <input class="form-control" name="no_hp" type="text"  placeholder="Nomor Handphone" id="no_hp">
+
+                <label class="ms-3 mt-1 me-2"  for="no_rm"><b>No. Rekam Medis</b></label>
+                <input class="form-control" name="no_rm" value="<?php echo $rmCode?>" disabled type="text" id="no_rm">
             </div>
-            <button type="submit" name="simpan" class="btn btn-primary mt-2">Simpan</button>
+            <input type="submit" value="Simpan" name="simpan" class="btn btn-primary mt-2">
     </form>
 </body>
 </html>
