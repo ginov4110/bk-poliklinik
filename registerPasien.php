@@ -8,14 +8,16 @@
     $initCode= "RM";
     $rmCode= $initCode . sprintf("%03s", $sequence);
 
+    $totalPasien= mysqli_query($mysqli, "SELECT * FROM pasien WHERE id IN (SELECT MAX(id) FROM pasien)");
+
     if(isset($_POST['simpan'])){
-        $tambah = mysqli_query($mysqli, "INSERT INTO obat (nama,alamat,no_ktp,no_hp,no_rm) 
+        $tambah = mysqli_query($mysqli, "INSERT INTO pasien (nama,alamat,no_ktp,no_hp,no_rm) 
                                             VALUES (
                                                 '" . $_POST['nama'] . "',
                                                 '" . $_POST['alamat'] . "',
                                                 '" . $_POST['no_ktp'] . "',
                                                 '" . $_POST['no_hp'] . "',
-                                                '" . $_POST['no_rm'] . "',
+                                                '" . $_POST['no_rm'] . "'
                                             )");
     }
 ?>
@@ -46,7 +48,8 @@
                 <input class="form-control" name="no_hp" type="text"  placeholder="Nomor Handphone" id="no_hp">
 
                 <label class="ms-3 mt-1 me-2"  for="no_rm"><b>No. Rekam Medis</b></label>
-                <input class="form-control" name="no_rm" value="<?php echo $rmCode?>" disabled type="text" id="no_rm">
+                <input class="form-control" name="no_rm" placeholder="RM000 , jumlah antrian +1" type="text" id="no_rm">
+                <p class="text-danger">*Jumlah antrian sekarang <? echo $totalPasien['id'] ?> </p>
             </div>
             <input type="submit" value="Simpan" name="simpan" class="btn btn-primary mt-2">
     </form>
