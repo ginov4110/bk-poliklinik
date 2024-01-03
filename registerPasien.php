@@ -53,35 +53,34 @@
             </div>
             <input type="submit" value="Simpan" name="simpan" class="btn btn-primary mt-2">
     </form>
-
+    <hr>
     <h4 class="mt-5" >Daftar Antrian Pasien</h4>
     <table class="table">
         <thead>
             <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">No</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Alamat</th>
+            <th scope="col">Nomor KTP</th>
+            <th scope="col">Nomor HP</th>
+            <th scope="col">Nomor RM</th>
             </tr>
         </thead>
         <tbody>
+            <?php
+                $result = mysqli_query($mysqli, "SELECT * FROM pasien");
+                $no= 1;
+                while ($datas = mysqli_fetch_array($result)){
+            ?>
             <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+                <th scope="row"><? echo $datas['id'] ?></th>
+                <td><?php echo $datas['nama'] ?></td>
+                <td><?php echo $datas['alamat'] ?></td>
+                <td><?php echo $datas['no_ktp'] ?></td>
+                <td><?php echo $datas['no_hp'] ?></td>
+                <td><?php echo $datas['no_rm'] ?></td>
             </tr>
-            <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            </tr>
-            <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-            </tr>
+            <?php }?>
         </tbody>
     </table>
 </body>
