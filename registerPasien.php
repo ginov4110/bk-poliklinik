@@ -73,7 +73,7 @@
                 while ($datas = mysqli_fetch_array($result)){
             ?>
             <tr>
-                <th scope="row"><? echo $datas['id'] ?></th>
+                <th scope="row"><?php echo $no++ ?></th>
                 <td><?php echo $datas['nama'] ?></td>
                 <td><?php echo $datas['alamat'] ?></td>
                 <td><?php echo $datas['no_ktp'] ?></td>

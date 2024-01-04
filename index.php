@@ -33,15 +33,18 @@
                             <a class="dropdown-item" href="index.php?page=obat">Obat</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="index.php?page=periksaPasien">Periksa</a>
-                        </li>
-                        <li>
                             <a class="dropdown-item" href="index.php?page=registerPasien">Pendaftaran Pasien</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="index.php?page=dokter">Daftar Dokter</a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="index.php?page=registerPoli">Daftar Poli</a>
+                        </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=periksaPasien">Periksa</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
