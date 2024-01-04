@@ -41,6 +41,9 @@
                         <li>
                             <a class="dropdown-item" href="index.php?page=registerPoli">Daftar Poli</a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="index.php?page=manageDokter">Manage Dokter</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
