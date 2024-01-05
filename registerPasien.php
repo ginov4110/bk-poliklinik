@@ -1,11 +1,12 @@
 <?php
     include "koneksi.php";
-        $auto= mysqli_query($mysqli ,"SELECT no_rm FROM pasien");
+        $auto= mysqli_query($mysqli ,"SELECT RIGHT (no_rm, 3) as max_code FROM pasien");
         $data= mysqli_fetch_array($auto);
-        $sequence= (int)substr(1,3);
-        $sequence+= 1;
-        $initCode= "202401-";
-        $rmCode= $initCode . sprintf("%03s", $sequence++);
+        $code= $data['max_code'];
+        $sequence= (int)substr($code,1,3);
+        $sequence++;
+        $initCode= date("Ymd");
+        $rmCode= $initCode . sprintf("%03s", $sequence);
     
 
     if(isset($_POST['simpan'])){
@@ -16,7 +17,7 @@
                                                 '" . $_POST['no_ktp'] . "',
                                                 '" . $_POST['no_hp'] . "',
                                                 '" . $_POST['no_rm'] . "'
-                                            )");        
+                                            )");  
     }
 ?>
 
@@ -46,7 +47,7 @@
                 <input class="form-control" name="no_hp" type="text"  placeholder="Nomor Handphone" id="no_hp">
 
                 <label class="ms-3 mt-1 me-2"  for="no_rm"><b>No. Rekam Medis</b></label>
-                <input class="form-control" name="no_rm" value="<?php echo $rmCode++ ?>"  type="text" id="no_rm">
+                <input class="form-control" name="no_rm" value="<?php echo $rmCode++ ?>"  type="text" id="no_rm" readonly>
             </div>
             <input type="submit" value="Daftar" name="simpan" class="btn btn-primary mt-2">
     </form>
