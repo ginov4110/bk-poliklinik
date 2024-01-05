@@ -2,7 +2,7 @@
     include "koneksi.php";
 
     if(isset($_POST['simpan'])) {
-        $tambah= mysqli_query($mysqli, "INSERT INTO dokter (nip, nama, alamat, no_hp, id_poli, password)
+        $tambah= mysqli_query($mysqli, "INSERT INTO dokter (nip, nama, alamat, no_hp, id_poli, passwords)
             VALUES(
                 '" . $_POST['nip'] . "',
                 '" . $_POST['nama'] . "',
@@ -28,23 +28,23 @@
     <form action="" method="POST">
         <div class="mb-3">
             <label for="nip" class="form-label">NIP</label>
-            <input type="number" class="form-control" id="nip" placeholder="NIP" maxlength="10">
+            <input type="number" name="nip" class="form-control" id="nip" placeholder="NIP" maxlength="10">
         </div>
         <div class="mb-3">
             <label for="nama" class="form-label">Nama</label>
-            <input type="text" class="form-control" id="nama" placeholder="Nama">
+            <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
         </div>
         <div class="mb-3">
             <label for="alamat" class="form-label">Alamat</label>
-            <textarea class="form-control" id="alamat" rows="3" placeholder="Alamat Tempat Tinggal"></textarea>
+            <textarea class="form-control" name="alamat" id="alamat" rows="3" placeholder="Alamat Tempat Tinggal"></textarea>
         </div>
         <div class="mb-3">
             <label for="no_hp" class="form-label">Nomor Handphone</label>
-            <input type="number" class="form-control" id="no_hp" placeholder="Nomor Handphone">
+            <input type="number" name="no_hp" class="form-control" id="no_hp" placeholder="Nomor Handphone">
         </div>
         <div class="mb-3">
             <label for="id_poli" class="form-label">Poli</label>
-            <select name="" id="id_poli" class="form-select">
+            <select name="id_poli" id="id_poli" class="form-select">
                 <?php
                     $selectedPoli= '';
                     $result= mysqli_query($mysqli, "SELECT * FROM poli");
