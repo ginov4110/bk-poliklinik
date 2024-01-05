@@ -1,10 +1,18 @@
 <?php
     include "koneksi.php";
 
+        $auto= mysqli_query($mysqli ,"SELECT RIGHT (no_antrian, 1) as max_code FROM daftar_poli");
+        $data= mysqli_fetch_array($auto);
+        $code= $data['max_code'];
+        $sequence= (int)substr($code,1);
+        $sequence++;
+        $initCode= "";
+        $seqCode= $initCode . sprintf($sequence);
+
     if(isset($_POST['simpan'])){
         $tambah= mysqli_query($mysqli, "INSERT INTO daftar_poli (id_pasien, id_jadwal, keluhan, no_antrian)
             VALUES (
-                '" . $_POST['nama_pasien'] . "',
+                '" . $_POST['id_pasien'] . "',
                 '" . $_POST['id_jadwal'] . "',
                 '" . $_POST['keluhan'] . "',
                 '" . $_POST['no_antrian'] . "'
@@ -24,9 +32,28 @@
     <h2 class="mt-4">Daftar Poli</h2>
     <hr>
     <form action="" method="POST">
+        <?php
+            $id_pasien= '';
+            $id_jadwal= '';
+            $keluhan= '';
+            $no_antrian= '';
+            if(isset($_GET['id'])){
+                $ambil= mysqli_query($mysqli,
+                "SELECT * FROM daftar_poli
+                WHERE id='" . $_GET['id'] . "'");
+                while($row= mysqli_fetch_array($ambil)){
+                    $id_pasien= $row['id_pasien'];
+                    $id_jadwal= $row['id_jadwal'];
+                    $keluhan= $row['keluhan'];
+                    $no_antrian= $row['no_antrian'];
+                }
+            
+        ?>
+            <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+        <?php } ?>
         <div class="mb-3">
             <label for="id_pasien" class="form-label">Pasien</label>
-            <select class="form-select" name="nama_pasien" id="nama_pasien">
+            <select class="form-select" name="id_pasien" id="id_pasien">
                 <?php 
                     $selectedPasien= '';
                     $pasiens= mysqli_query($mysqli, "SELECT * FROM pasien");
@@ -38,22 +65,8 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="id_jadwal" class="form-label">Pilih Poli</label>
-            <select name="id_jadwal" id="id_jadwal" class="form-select">
-                <?php 
-                    $selectedPoli= '';
-                    $polis= mysqli_query($mysqli, "SELECT * FROM poli");
-                    while($poli= mysqli_fetch_array($polis)){
-                        $selectedPoli= 'selected="selected"';
-                ?>
-                <option value="<?php echo $poli['id'] ?>" <?php echo $selectedPoli ?> > <?php echo $poli['nama_poli'] ?> </option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="mb-3">
             <label for="id_jadwal" class="form-label">Jadwal</label>
             <select name="id_jadwal" id="id_jadwal" class="form-select">
-                <option>--- Pilih ---</option>
                 <?php 
                     $selectedJadwal= '';
                     $jadwals= mysqli_query($mysqli, "SELECT * FROM `jadwal_periksa` INNER JOIN dokter ON jadwal_periksa.`id_dokter` = `dokter`.`id`;");
@@ -66,11 +79,11 @@
         </div>
         <div class="mb-3">
             <label for="keluhan">Keluhan</label>
-            <textarea name="keluhan" id="keluhan" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea name="keluhan" id="keluhan" class="form-control" id="exampleFormControlTextarea1" rows="3" value="<?php echo $keluhan?>" ></textarea>
         </div>
         <div class="mb-3">
             <label for="no_antrian">Nomor Antrian</label>
-            <input name="no_antrian" id="no_antrian" type="number" class="form-control" disabled >
+            <input name="no_antrian" id="no_antrian" value="<?php echo $seqCode ?>" type="number" class="form-control" disabled >
         </div>
         <input type="submit" class="btn btn-primary" namespace="simpan" value="Daftar" >
     </form>
