@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Jan 2024 pada 10.18
+-- Waktu pembuatan: 05 Jan 2024 pada 14.15
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -35,6 +35,14 @@ CREATE TABLE `daftar_poli` (
   `no_antrian` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `daftar_poli`
+--
+
+INSERT INTO `daftar_poli` (`id`, `id_pasien`, `id_jadwal`, `keluhan`, `no_antrian`) VALUES
+(3, 26, 3, 'diare', 1),
+(4, 25, 5, 'susah tidur', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +55,13 @@ CREATE TABLE `detail_periksa` (
   `id_obat` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `detail_periksa`
+--
+
+INSERT INTO `detail_periksa` (`id`, `id_periksa`, `id_obat`) VALUES
+(1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -55,6 +70,8 @@ CREATE TABLE `detail_periksa` (
 
 CREATE TABLE `dokter` (
   `id` int(11) NOT NULL,
+  `nip` varchar(50) NOT NULL,
+  `passwords` varchar(255) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `alamat` varchar(255) NOT NULL,
   `no_hp` varchar(50) NOT NULL,
@@ -65,13 +82,13 @@ CREATE TABLE `dokter` (
 -- Dumping data untuk tabel `dokter`
 --
 
-INSERT INTO `dokter` (`id`, `nama`, `alamat`, `no_hp`, `id_poli`) VALUES
-(1, 'Andra Fatmawati', 'Tembalang, Semarang, Indonesia', '082394876278', 1),
-(2, 'Yustina', 'Ungaran', '085284692666', 4),
-(3, 'Amalia', 'jatingaleh', '082565681323', 3),
-(4, 'Nuralami', 'Demak', '089677529544', 2),
-(5, 'Ardianto', 'Mangkang', '089766365971', 6),
-(6, 'Marta', 'Kendal', '082579426963', 5);
+INSERT INTO `dokter` (`id`, `nip`, `passwords`, `nama`, `alamat`, `no_hp`, `id_poli`) VALUES
+(1, '1436543126', 'andra1234', 'Andra Fatmawati', 'Tembalang, Semarang, Indonesia', '082394876278', 1),
+(2, '1643214630', 'yustina1234', 'Yustina', 'Ungaran', '085284692666', 4),
+(3, '1497086638', 'amalia1234', 'Amalia', 'jatingaleh', '082565681323', 3),
+(4, '1490672435', 'nuralami1234', 'Nuralami', 'Demak', '089677529544', 2),
+(5, '1490785638', 'ardianto1234', 'Ardianto', 'Mangkang', '089766365971', 6),
+(6, '1490784625', 'marta1234', 'Marta', 'Kendal', '082579426963', 5);
 
 -- --------------------------------------------------------
 
@@ -132,7 +149,7 @@ CREATE TABLE `pasien` (
   `alamat` varchar(255) NOT NULL,
   `no_ktp` varchar(255) NOT NULL,
   `no_hp` varchar(50) NOT NULL,
-  `no_rm` varchar(25) NOT NULL DEFAULT 'RM'
+  `no_rm` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -140,16 +157,8 @@ CREATE TABLE `pasien` (
 --
 
 INSERT INTO `pasien` (`id`, `nama`, `alamat`, `no_ktp`, `no_hp`, `no_rm`) VALUES
-(1, 'Gilang Nova', 'Ambarawa', '3322012843', '0823478134', 'RM001'),
-(2, 'Gilang Nopa', 'Salatiga', '3322004943', '0823987243', ''),
-(3, 'Gilang Nopa', 'Salatiga', '3322004943', '0823987243', ''),
-(4, 'Gilang Nopa', 'Salatiga', '3322004943', '0823987243', ''),
-(5, 'Andre', 'Salatiga', '3322012843', '0823987243', 'RM003'),
-(6, 'Andre', 'Salatiga', '3322012843', '0823987243', 'RM003'),
-(7, 'niko', 'semarang', '3302392341', '081243872345', '004'),
-(8, 'niko', 'semarang', '3302392341', '081243872345', '004'),
-(9, 'niko', 'semarang', '3302392341', '081243872345', '004'),
-(10, 'niko', 'semarang', '3302392341', '081243872345', '004');
+(25, 'Gilang Nova', 'Ambarawa', '3322012843', '0823478134', '20240105001'),
+(26, 'Andre', 'Salatiga', '3322004943', '0823987243', '20240105002');
 
 -- --------------------------------------------------------
 
@@ -164,6 +173,15 @@ CREATE TABLE `periksa` (
   `catatan` text NOT NULL,
   `biaya` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `periksa`
+--
+
+INSERT INTO `periksa` (`id`, `id_daftar_poli`, `tgl_periksa`, `catatan`, `biaya`) VALUES
+(1, 1, '2024-01-04 07:55:11', 'Banyak minum air putih dan istirahat', 50000),
+(7, 1, '2024-01-12 15:20:00', 'banyak minum air putih diminum obatnya 2x sehari', 100000),
+(8, 2, '2024-01-18 16:04:00', 'banyak istirahat', 150000);
 
 -- --------------------------------------------------------
 
@@ -283,13 +301,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_periksa`
 --
 ALTER TABLE `detail_periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `dokter`
@@ -313,13 +331,13 @@ ALTER TABLE `obat`
 -- AUTO_INCREMENT untuk tabel `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `periksa`
 --
 ALTER TABLE `periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `poli`
@@ -362,12 +380,6 @@ ALTER TABLE `dokter`
 --
 ALTER TABLE `jadwal_periksa`
   ADD CONSTRAINT `fk_jadwal_dokter` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id`);
-
---
--- Ketidakleluasaan untuk tabel `periksa`
---
-ALTER TABLE `periksa`
-  ADD CONSTRAINT `fok_periksa_daftar_poli` FOREIGN KEY (`id_daftar_poli`) REFERENCES `daftar_poli` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
