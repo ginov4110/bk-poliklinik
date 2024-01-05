@@ -18,23 +18,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Poliklinik</title>
+    <title>Daftar Poli</title>
 </head>
 <body>
-    <h2 class="mt-4">Register Poliklinik</h2>
+    <h2 class="mt-4">Daftar Poli</h2>
     <hr>
     <form action="" method="POST">
         <div class="mb-3">
-            <label for="id_pasien" class="form-label">Pasien</label>
-            <select name="id_pasien" id="id_pasien" class="form-select">
+            <label for="id_pasien" class="form-label">Nomor RM</label>
+            <input type="text" class="form-control" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="id_jadwal" class="form-label">Pilih Poli</label>
+            <select name="id_jadwal" id="id_jadwal" class="form-select">
                 <option>--- Pilih ---</option>
-                <?php
-                    $selectedPasien= '';
-                    $pasiens= mysqli_query($mysqli, "SELECT * FROM pasien");
-                    while($pasien= mysqli_fetch_array($pasiens)){
-                        $selectedPasien= 'selected="selected"';
+                <?php 
+                    $selectedPoli= '';
+                    $polis= mysqli_query($mysqli, "SELECT * FROM poli");
+                    while($poli= mysqli_fetch_array($polis)){
+                        $selectedPoli= 'selected="selected"';
                 ?>
-                <option value="<?php echo $pasien['id'] ?>" <?php echo $selectedPasien ?>> <?php echo $pasien['nama'] ?> </option>
+                <option value="<?php echo $poli['id'] ?>" <?php echo $selectedPoli ?> > <?php echo $poli['nama_poli'] ?> </option>
                 <?php } ?>
             </select>
         </div>
@@ -58,7 +62,7 @@
         </div>
         <div class="mb-3">
             <label for="no_antrian">Nomor Antrian</label>
-            <input name="no_antrian" id="no_antrian" type="number" class="form-control" placeholder="000" >
+            <input name="no_antrian" id="no_antrian" type="number" class="form-control" disabled >
         </div>
         <input type="submit" class="btn btn-primary" namespace="simpan" value="Daftar" >
     </form>

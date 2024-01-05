@@ -1,14 +1,12 @@
 <?php
     include "koneksi.php";
-
-    $auto= mysqli_query($mysqli ,"SELECT no_rm FROM pasien");
-    $data= mysqli_fetch_array($auto);
-    $sequence= (int)substr(1,3);
-    $sequence++;
-    $initCode= "RM";
-    $rmCode= $initCode . sprintf("%03s", $sequence);
-
-    $totalPasien= mysqli_query($mysqli, "SELECT * FROM pasien WHERE id IN (SELECT MAX(id) FROM pasien)");
+        $auto= mysqli_query($mysqli ,"SELECT no_rm FROM pasien");
+        $data= mysqli_fetch_array($auto);
+        $sequence= (int)substr(1,3);
+        $sequence+= 1;
+        $initCode= "202401-";
+        $rmCode= $initCode . sprintf("%03s", $sequence++);
+    
 
     if(isset($_POST['simpan'])){
         $tambah = mysqli_query($mysqli, "INSERT INTO pasien (nama,alamat,no_ktp,no_hp,no_rm) 
@@ -18,7 +16,7 @@
                                                 '" . $_POST['no_ktp'] . "',
                                                 '" . $_POST['no_hp'] . "',
                                                 '" . $_POST['no_rm'] . "'
-                                            )");
+                                            )");        
     }
 ?>
 
@@ -48,10 +46,9 @@
                 <input class="form-control" name="no_hp" type="text"  placeholder="Nomor Handphone" id="no_hp">
 
                 <label class="ms-3 mt-1 me-2"  for="no_rm"><b>No. Rekam Medis</b></label>
-                <input class="form-control" name="no_rm" placeholder="RM000 , jumlah antrian +1" type="text" id="no_rm">
-                <p class="text-danger">*Jumlah antrian sekarang <? echo $totalPasien['id'] ?> </p>
+                <input class="form-control" name="no_rm" value="<?php echo $rmCode++ ?>"  type="text" id="no_rm">
             </div>
-            <input type="submit" value="Simpan" name="simpan" class="btn btn-primary mt-2">
+            <input type="submit" value="Daftar" name="simpan" class="btn btn-primary mt-2">
     </form>
     <hr>
     <h4 class="mt-5" >Daftar Antrian Pasien</h4>
