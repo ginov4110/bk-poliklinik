@@ -30,8 +30,7 @@
     <link rel="stylesheet" href="./styles/registerPasienStyle.css">
 </head>
 <body>
-    <h1 class="mt-4" >Pendaftaran Pasien</h1>
-    <h4 class="mt-5" >Mohon isi data-data yang diperlukan</h4>
+    <h1 class="mt-4" >Pendaftaran Pasien Baru</h1>
     <form action="" method="POST" onsubmit="return(validate());">
             <div class="d-flex flex-column">
                 <label class="ms-3 mt-1 me-2" for="nama"><b>Nama Anda</b></label>
@@ -47,7 +46,7 @@
                 <input class="form-control" name="no_hp" type="text"  placeholder="Nomor Handphone" id="no_hp">
 
                 <label class="ms-3 mt-1 me-2"  for="no_rm"><b>No. Rekam Medis</b></label>
-                <input class="form-control" name="no_rm" value="<?php echo $rmCode++ ?>"  type="text" id="no_rm" readonly>
+                <input class="form-control" name="no_rm" value="<?php echo $rmCode ?>"  type="text" id="no_rm" readonly>
             </div>
             <input type="submit" value="Daftar" name="simpan" class="btn btn-primary mt-2">
     </form>

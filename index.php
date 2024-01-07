@@ -17,7 +17,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Sistem Informasi Poliklinik</a>
+        <a class="navbar-brand me-3s" href="#">Sistem Informasi Poliklinik</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,21 +33,46 @@
                             <a class="dropdown-item" href="index.php?page=obat">Obat</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="index.php?page=registerPasien">Pendaftaran Pasien</a>
+                            <a class="dropdown-item" href="index.php?page=obat">Dokter</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="index.php?page=dokter">Daftar Dokter</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="index.php?page=registerPoli">Daftar Poli</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="index.php?page=manageDokter">Manage Dokter</a>
+                            <a class="dropdown-item" href="index.php?page=obat">Pasien</a>
                         </li>
                     </ul>
                 </li>
+                <?php 
+                    if(isset($_SESSION['username'])){
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=manageDokter">Manage Dokter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=managePoli">Manage Poli</a>
+                    </li>
+                <?php } ?>
+                <?php 
+                    if(isset($_SESSION['nip'])){
+                        
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=periksa">Periksa</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=manageJadwal">Jadwal Praktik Dokter</a>
+                    </li>
+                <?php } ?>
+                <?php
+                    if(isset($_SESSION['no_rm'])){
+                ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=registPoli">Booking Periksa</a>
+                    </li>    
+
+                <?php } ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=periksaPasien">Periksa</a>
+                    <a class="nav-link" href="index.php?page=registPasienBaru">Pendaftaran Pasien Baru</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
@@ -61,15 +86,40 @@
                         </li>
                     </ul>
                 <?php
-                } else {
+                } else if(isset($_SESSION['no_rm'])) {
                     // Jika pengguna belum login, tampilkan tombol "Login" dan "Register"
                 ?>
+
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=registerUser">Register</a>
+                            <a class="nav-link" href="logout.php">Logout (<?php echo $_SESSION['no_rm'] ?>)</a>
+                        </li>
+                    </ul>
+                <?php } else if (isset($_SESSION['nip']) && $_SESSION['nip'] === true) { ?>
+
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Logout (<?php echo $_SESSION['nip'] ?>)</a>
+                        </li>
+                    </ul>
+                <?php } else {?>
+                    <ul class="navbar-nav me-4">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Login</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=loginPasien">Login Pasien</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=loginDokter">Login Dokter</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=loginUser">Login Admin</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=loginUser">Login</a>
+                            <a class="nav-link" href="index.php?page=registerUser">Register</a>
                         </li>
                     </ul>
                 <?php

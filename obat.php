@@ -38,7 +38,8 @@ if (isset($_GET['aksi'])) {
                 </script>";
 }
 ?>
-<h2>Obat</h2>
+<h2 class="mt-3">Obat</h2>
+<hr>
 <br>
 <div class="container">
     <!--Form Input Data-->
