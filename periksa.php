@@ -1,3 +1,19 @@
+<?php
+    include "koneksi.php";
+
+    if(isset($_POST['simpan'])){
+        $tambah= mysqli_query($mysqli, "INSERT INTO periksa(id_daftar_poli, tgl_periksa, catatan, biaya, obat)
+            VALUES(
+                '". $_POST['id_daftar_poli'] ."',
+                '". $_POST['tgl_periksa'] ."',
+                '". $_POST['catatan'] ."',
+                '". $_POST['biaya'] ."',
+                '". $_POST['obat'] ."'
+            )
+        ");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,19 +27,42 @@
     <form action="" method="post">
         <div class="mb-3 mt-3">
             <label for="">Daftar Poli</label>
-            <input class="form-control" type="text" name="">
+            <select name="id_daftar_poli id="" class="form-select">
+                <?php
+                    $selectedPoli= '';
+                    $polis= mysqli_query($mysqli, "SELECT * FROM daftar_poli inner join pasien on daftar_poli.id_pasien = pasien.id;");
+
+                    while($poli= mysqli_fetch_array($polis)){
+                        $selectedPoli= 'selected="selected"';
+                ?>
+                <option value="<?php echo $poli['id'] ?>" ><?php echo $poli['nama'] ?>, Keluhan: <?php echo $poli['keluhan'] ?> </option>
+                <?php } ?>
+            </select>
         </div>
         <div class="mb-3 mt-3">
-            <label for=""></label>
-            <input class="form-control" type="text" name="">
+            <label for="tgl_periksa">Tanggal Periksa</label>
+            <input class="form-control" type="datetime-local" name="tgl_periksa">
         </div>
         <div class="mb-3 mt-3">
-            <label for=""></label>
-            <input class="form-control" type="text" name="">
+            <label for="catatan">Catatan</label>
+            <textarea class="form-control" type="text" name="catatan"></textarea>
         </div>
         <div class="mb-3 mt-3">
-            <label for=""></label>
-            <input class="form-control" type="text" name="">
+            <label for="obat">Obat</label>
+            <select name="id_obat" class="form-select">
+                <?php
+                    $selectedObat='';
+                    $obats= mysqli_query($mysqli, "SELECT * FROM obat");
+
+                    while($obat= mysqli_fetch_array($obats)){
+                ?>
+                    <option value="<?php echo $obat['nama_obat'] ?>" <?php echo $selectedObat ?> > <?php echo $obat['nama_obat'] ?> </option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="biaya">Biaya</label>
+            <input class="form-control" type="number" value="150000" name="biaya" readonly>
         </div>
         <input class="btn btn-primary" type="submit" name="simpan" value="Selesai" >
     </form>

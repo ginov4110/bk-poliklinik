@@ -33,10 +33,7 @@
                             <a class="dropdown-item" href="index.php?page=obat">Obat</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="index.php?page=obat">Dokter</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="index.php?page=obat">Pasien</a>
+                            <a class="dropdown-item" href="index.php?page=periksa">Periksa</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="index.php?page=manageJadwal">Input Jadwal Dokter</a>
@@ -57,10 +54,6 @@
                     if(isset($_SESSION['nip'])){
                         
                 ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?page=periksa">Periksa</a>
-                    </li>
-                    
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?page=manageJadwal">Jadwal Praktik Dokter</a>
                     </li>
