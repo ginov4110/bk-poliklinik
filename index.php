@@ -38,6 +38,9 @@
                         <li>
                             <a class="dropdown-item" href="index.php?page=obat">Pasien</a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="index.php?page=manageJadwal">Input Jadwal Dokter</a>
+                        </li>
                     </ul>
                 </li>
                 <?php 
