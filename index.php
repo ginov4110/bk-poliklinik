@@ -137,12 +137,34 @@
     
         if (isset($_SESSION['username'])) {
             //jika sudah login tampilkan username
-            echo ", " . $_SESSION['username'] . "</h2><hr>";
-        } else {
-            echo "</h2><hr>Silakan Login untuk menggunakan sistem. Jika belum memiliki akun silakan Register terlebih dahulu.";
+            echo ", " . $_SESSION['username'] . "</h2>";
         }
     }
     ?>
+    <hr>
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+            <div class="col">
+                <img src="./images/dokterLogin-removebg-preview.png" class="img_thumbnail" alt="">
+            </div>
+            <div class="col mt-5">
+                <h4 class="mt-3">Sistem Poliklinik</h4>
+                <ul type="dot">
+                    <li class="fs-6">Daftar sebagai pasien dan jadwalkan periksa dan temu dengan dokter</li>
+                    <li class="fs-6">Jadwal dokter praktik mulai Senin-Sabtu</li>
+                    <li class="fs-6">Tersedia banyak Poliklinik</li>
+                </ul>
+                <h4 class="mt-3">Daftar secara online sekarang!</h4>
+                    <ul type="dot">
+                        <li class="fs-6">Daftar pasien baru</li>
+                        <li class="fs-6">Catat Nomor RM anda untuk login</li>
+                        <li class="fs-6">Login untuk memilih poli dan dokter anda</li>
+                        <li class="fs-6">Tunggu jadwal yang telah ditentukan</li>
+                        <li class="fs-6">Pembayaran dapat dilihat melalui riwayat pasien</li>
+                    </ul>
+            </div>
+        </div>
+    </div>
 </main>
 
     <!-- Script -->
