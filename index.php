@@ -70,6 +70,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?page=registPasienBaru">Pendaftaran Pasien Baru</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=riwayatPeriksa">Riwayat Periksa</a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto">
             <?php
@@ -91,7 +94,7 @@
                             <a class="nav-link" href="logout.php">Logout (<?php echo $_SESSION['no_rm'] ?>)</a>
                         </li>
                     </ul>
-                <?php } else if (isset($_SESSION['nip']) && $_SESSION['nip'] === true) { ?>
+                <?php } else if (isset($_SESSION['nip'])) { ?>
 
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
@@ -142,30 +145,30 @@
     }
     ?>
     <hr>
+</main>
     <div class="container-fluid">
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <img src="./images/dokterLogin-removebg-preview.png" class="img_thumbnail" alt="">
-            </div>
-            <div class="col mt-5">
-                <h4 class="mt-3">Sistem Poliklinik</h4>
-                <ul type="dot">
-                    <li class="fs-6">Daftar sebagai pasien dan jadwalkan periksa dan temu dengan dokter</li>
-                    <li class="fs-6">Jadwal dokter praktik mulai Senin-Sabtu</li>
-                    <li class="fs-6">Tersedia banyak Poliklinik</li>
-                </ul>
-                <h4 class="mt-3">Daftar secara online sekarang!</h4>
+            <div class="row d-flex justify-content-center">
+                <div class="col">
+                    <img src="./images/dokterLogin-removebg-preview.png" class="img_thumbnail" alt="">
+                </div>
+                <div class="col mt-5">
+                    <h4 class="mt-3">Sistem Poliklinik</h4>
                     <ul type="dot">
-                        <li class="fs-6">Daftar pasien baru</li>
-                        <li class="fs-6">Catat Nomor RM anda untuk login</li>
-                        <li class="fs-6">Login untuk memilih poli dan dokter anda</li>
-                        <li class="fs-6">Tunggu jadwal yang telah ditentukan</li>
-                        <li class="fs-6">Pembayaran dapat dilihat melalui riwayat pasien</li>
+                        <li class="fs-6">Daftar sebagai pasien dan jadwalkan periksa dan temu dengan dokter</li>
+                        <li class="fs-6">Jadwal dokter praktik mulai Senin-Sabtu</li>
+                        <li class="fs-6">Tersedia banyak Poliklinik</li>
                     </ul>
+                    <h4 class="mt-3">Daftar secara online sekarang!</h4>
+                        <ul type="dot">
+                            <li class="fs-6">Daftar pasien baru</li>
+                            <li class="fs-6">Catat Nomor RM anda untuk login</li>
+                            <li class="fs-6">Login untuk memilih poli dan dokter anda</li>
+                            <li class="fs-6">Tunggu jadwal yang telah ditentukan</li>
+                            <li class="fs-6">Pembayaran dapat dilihat melalui riwayat pasien</li>
+                        </ul>
+                </div>
             </div>
         </div>
-    </div>
-</main>
 
     <!-- Script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

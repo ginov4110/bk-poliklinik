@@ -27,7 +27,7 @@
     <form action="" method="post">
         <div class="mb-3 mt-3">
             <label for="">Daftar Poli</label>
-            <select name="id_daftar_poli id="" class="form-select">
+            <select name="id_daftar_poli" class="form-select">
                 <?php
                     $selectedPoli= '';
                     $polis= mysqli_query($mysqli, "SELECT * FROM daftar_poli inner join pasien on daftar_poli.id_pasien = pasien.id;");
@@ -35,7 +35,7 @@
                     while($poli= mysqli_fetch_array($polis)){
                         $selectedPoli= 'selected="selected"';
                 ?>
-                <option value="<?php echo $poli['id'] ?>" ><?php echo $poli['nama'] ?>, Keluhan: <?php echo $poli['keluhan'] ?> </option>
+                <option value="<?php echo $poli['id_poli'] ?>" ><?php echo $poli['nama'] ?>, Keluhan: <?php echo $poli['keluhan'] ?> </option>
                 <?php } ?>
             </select>
         </div>
@@ -49,14 +49,14 @@
         </div>
         <div class="mb-3 mt-3">
             <label for="obat">Obat</label>
-            <select name="id_obat" class="form-select">
+            <select name="obat" class="form-select">
                 <?php
                     $selectedObat='';
                     $obats= mysqli_query($mysqli, "SELECT * FROM obat");
 
                     while($obat= mysqli_fetch_array($obats)){
                 ?>
-                    <option value="<?php echo $obat['nama_obat'] ?>" <?php echo $selectedObat ?> > <?php echo $obat['nama_obat'] ?> </option>
+                    <option value="<?php echo $obat['id'] ?>" <?php echo $selectedObat ?> > <?php echo $obat['nama_obat'] ?> </option>
                 <?php } ?>
             </select>
         </div>
