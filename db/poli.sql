@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Jan 2024 pada 23.56
+-- Waktu pembuatan: 23 Jan 2024 pada 14.54
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `daftar_poli` (
-  `id` int(11) NOT NULL,
+  `id_poli` int(11) NOT NULL,
   `id_pasien` int(11) NOT NULL,
   `id_jadwal` int(11) NOT NULL,
   `keluhan` text NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE `daftar_poli` (
 -- Dumping data untuk tabel `daftar_poli`
 --
 
-INSERT INTO `daftar_poli` (`id`, `id_pasien`, `id_jadwal`, `keluhan`, `no_antrian`) VALUES
+INSERT INTO `daftar_poli` (`id_poli`, `id_pasien`, `id_jadwal`, `keluhan`, `no_antrian`) VALUES
 (3, 26, 3, 'diare', 1),
 (4, 25, 5, 'susah tidur', 2),
 (8, 28, 4, 'Demam dan batuk berdahak', 3);
@@ -90,7 +90,8 @@ INSERT INTO `dokter` (`id`, `nip`, `passwords`, `nama`, `alamat`, `no_hp`, `id_p
 (4, '1490672435', 'nuralami1234', 'Nuralami', 'Demak', '089677529544', 2),
 (5, '1490785638', 'ardianto1234', 'Ardianto', 'Mangkang', '089766365971', 6),
 (6, '1490784625', 'marta1234', 'Marta', 'Kendal', '082579426963', 5),
-(7, '1423', '1423', 'Agil', 'semarang', '1234566', 6);
+(7, '1423', '1423', 'Agil', 'semarang', '1234566', 6),
+(8, '156442', '123456', 'Nicholas', 'Demak', '2364367', 2);
 
 -- --------------------------------------------------------
 
@@ -118,7 +119,10 @@ INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_seles
 (5, 5, 'Jumat', '09:00:09', '11:00:11'),
 (6, 6, 'Sabtu', '08:00:08', '14:00:14'),
 (7, 1, 'Rabu', '10:00:00', '17:00:00'),
-(9, 7, 'Jumat', '09:00:00', '16:00:00');
+(9, 7, 'Jumat', '09:00:00', '16:00:00'),
+(10, 1, 'Sabtu', '11:00:00', '14:00:00'),
+(11, 5, 'Selasa', '10:00:00', '17:00:00'),
+(12, 4, 'Kamis', '10:00:00', '18:00:00');
 
 -- --------------------------------------------------------
 
@@ -139,7 +143,8 @@ CREATE TABLE `obat` (
 
 INSERT INTO `obat` (`id`, `nama_obat`, `kemasan`, `harga`) VALUES
 (1, 'Paracetamol', 'Kemas Primer', 8000),
-(2, 'Alpara', 'Kemas Primer', 10000);
+(2, 'Alpara', 'Kemas Primer', 10000),
+(3, 'Bodrex', 'Saset', 13000);
 
 -- --------------------------------------------------------
 
@@ -164,7 +169,8 @@ INSERT INTO `pasien` (`id`, `nama`, `alamat`, `no_ktp`, `no_hp`, `no_rm`) VALUES
 (25, 'Gilang Nova', 'Ambarawa', '3322012843', '0823478134', '20240105001'),
 (26, 'Andre', 'Salatiga', '3322004943', '0823987243', '20240105002'),
 (27, 'yoga', 'semarang', '1234', '1234', '20240107003'),
-(28, 'Andi', 'Semarang', '12344', '512345213', '20240107004');
+(28, 'Andi', 'Semarang', '12344', '512345213', '20240107004'),
+(29, 'Agus', 'Ngaliyan', '12344566', '1652436', '20240108002');
 
 -- --------------------------------------------------------
 
@@ -186,7 +192,8 @@ CREATE TABLE `periksa` (
 --
 
 INSERT INTO `periksa` (`id`, `id_daftar_poli`, `tgl_periksa`, `catatan`, `biaya`, `obat`) VALUES
-(1, 3, '2024-01-04 07:55:11', 'Banyak minum air putih dan istirahat', 50000, 'Alpara');
+(1, 3, '2024-01-04 07:55:11', 'Banyak minum air putih dan istirahat', 50000, 'Alpara'),
+(14, 4, '2024-01-24 19:47:00', 'ea5njerat', 150000, '2');
 
 -- --------------------------------------------------------
 
@@ -211,7 +218,8 @@ INSERT INTO `poli` (`id`, `nama_poli`, `keterangan`) VALUES
 (4, 'Konsultasi Gizi', 'Melayani analisis gizi'),
 (5, 'Kebidanan dan Kandungan', 'Melayani ibu-ibu hamil'),
 (6, 'Poliklinik Mata', 'Melayani pemeriksaan mengenai kesehatan mata'),
-(7, 'Poli Baru Nih', 'Baru buka ayo periksa disini');
+(7, 'Poli Baru Nih', 'Baru buka ayo periksa disini'),
+(8, 'Poliklinik Keluarga', 'Poliklinik untuk keluarga');
 
 -- --------------------------------------------------------
 
@@ -262,7 +270,7 @@ INSERT INTO `user` (`id`, `nama`, `username`, `password`) VALUES
 -- Indeks untuk tabel `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_poli`),
   ADD KEY `fk_daftar_poli_jadwal` (`id_jadwal`),
   ADD KEY `fk_daftar_poli_pasien` (`id_pasien`);
 
@@ -334,7 +342,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_poli` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_periksa`
@@ -346,37 +354,37 @@ ALTER TABLE `detail_periksa`
 -- AUTO_INCREMENT untuk tabel `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `periksa`
 --
 ALTER TABLE `periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `poli`
 --
 ALTER TABLE `poli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat_pasien`
@@ -424,13 +432,13 @@ ALTER TABLE `jadwal_periksa`
 -- Ketidakleluasaan untuk tabel `periksa`
 --
 ALTER TABLE `periksa`
-  ADD CONSTRAINT `fk_periksa_daftar_poli` FOREIGN KEY (`id_daftar_poli`) REFERENCES `daftar_poli` (`id`);
+  ADD CONSTRAINT `fk_periksa_daftar_poli` FOREIGN KEY (`id_daftar_poli`) REFERENCES `daftar_poli` (`id_poli`);
 
 --
 -- Ketidakleluasaan untuk tabel `riwayat_pasien`
 --
 ALTER TABLE `riwayat_pasien`
-  ADD CONSTRAINT `fk_riwayat_datar_poli` FOREIGN KEY (`id_daftar_poli`) REFERENCES `daftar_poli` (`id`);
+  ADD CONSTRAINT `fk_riwayat_datar_poli` FOREIGN KEY (`id_daftar_poli`) REFERENCES `daftar_poli` (`id_poli`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
