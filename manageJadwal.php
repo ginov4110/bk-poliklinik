@@ -2,14 +2,34 @@
     include "koneksi.php";
 
     if(isset($_POST['simpan'])){
-        $tambah= mysqli_query($mysqli, "INSERT INTO jadwal_periksa(id_dokter, hari, jam_mulai, jam_selesai)
-            VALUES(
-                '". $_POST['id_dokter'] ."',
-                '". $_POST['hari'] ."',
-                '". $_POST['jam_mulai'] ."',
-                '". $_POST['jam_selesai'] ."'
-            )
-        ");
+        if(isset($_POST['id'])){
+            $ubah= mysqli_query($mysqli, "UPDATE jadwal_periksa SET
+                id_dokter= '". $_POST['id_dokter'] . "', 
+                hari= '". $_POST['hari'] . "',
+                jam_mulai= '". $_POST['jam_mulai'] . "',
+                jam_selesai=  '". $_POST['jam_selesai'] . "',
+                id= '". $_POST['id'] ."'
+
+            ");
+        } else {
+            $tambah= mysqli_query($mysqli, "INSERT INTO jadwal_periksa(id_dokter, hari, jam_mulai, jam_selesai)
+                VALUES(
+                    '". $_POST['id_dokter'] ."',
+                    '". $_POST['hari'] ."',
+                    '". $_POST['jam_mulai'] ."',
+                    '". $_POST['jam_selesai'] ."'
+                )
+            ");
+
+        }
+    }
+    if(isset($_GET['aksi'])){
+        if($_GET['aksi'] == 'hapus') {
+            $hapus = mysqli_query($mysqli, "DELETE FROM jadwal_periksa WHERE id= '". $_GET['id'] ."'");
+        }
+        echo "<script> 
+                document.location='index.php?page=manageJadwal';
+                </script>";
     }
 ?>
 
@@ -81,6 +101,7 @@
       <th scope="col">Nama Dokter</th>
       <th scope="col">hari</th>
       <th scope="col">Jam Praktik</th>
+      <th>Aksi</th>
     </tr>
   </thead>
   <tbody>
@@ -95,6 +116,10 @@
         <td> <?php echo $jadwal['nama'] ?> </td>
         <td> <?php echo $jadwal['hari'] ?> </td>
         <td> <?php echo $jadwal['jam_mulai'] ?> - <?php echo $jadwal['jam_selesai'] ?> </td>
+        <td> 
+            <a href="index.php?page=manageJadwal&id= <?php echo $data['id'] ?>"></a> <i class=" bi bi-pencil-square text-warning"></i> 
+            <a class="ms-3" href="index.php?page=manageJadwal&id= <?php echo $data['id'] ?>$aksi=hapus"></a> <i class="bi bi-trash3 text-danger "></i>
+        </td>
     </tr>
     <?php } ?>
   </tbody>

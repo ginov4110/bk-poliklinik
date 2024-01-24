@@ -8,16 +8,39 @@
     }
 
     if(isset($_POST['simpan'])){
-        $tambah= mysqli_query($mysqli, "INSERT INTO dokter (nip, passwords, nama, alamat, no_hp, id_poli)
-            VALUES(
-                '". $_POST['nip'] ."',
-                '". $_POST['passwords'] ."',
-                '". $_POST['nama'] ."',
-                '". $_POST['alamat'] ."',
-                '". $_POST['no_hp'] ."',
-                '". $_POST['id_poli'] ."'
-            )
-        ");
+        if(isset($_POST['id'])){
+            $ubah= mysqli_query($mysqli, "UPDATE dokter SET
+                nip= '". $_POST['nip'] ."',
+                passwords= '". $_POST['passwords'] ."',
+                nama= '". $_POST['nama'] ."',
+                alamat= '". $_POST['alamat'] ."',
+                no_hp= '". $_POST['no_hp'] ."',
+                id_poli= '". $_POST['id_poli'] ."',
+                id= '". $_POST['id'] ."'
+            ");
+        } else {
+            $tambah= mysqli_query($mysqli, "INSERT INTO dokter (nip, passwords, nama, alamat, no_hp, id_poli)
+                VALUES(
+                    '". $_POST['nip'] ."',
+                    '". $_POST['passwords'] ."',
+                    '". $_POST['nama'] ."',
+                    '". $_POST['alamat'] ."',
+                    '". $_POST['no_hp'] ."',
+                    '". $_POST['id_poli'] ."'
+                )
+            ");
+        }
+        echo "<script> 
+                document.location='index.php?page=obat';
+                </script>";
+    }
+    if(isset($_GET['aksi'])){
+        if($_GET['aksi'] == 'hapus') {
+            $hapus = mysqli_query($mysqli, "DELETE FROM dokter WHERE id = '". $_GET['id'] ."'");
+        }
+        echo "<script> 
+                document.location='index.php?page=manageJadwal';
+                </script>";
     }
 ?>
 
@@ -32,6 +55,26 @@
     <h2 class="mt-3">Daftar Dokter</h2>
     <!-- forms: nip, nama dokter, alamat, no hp, poli, password -->
     <form method="post">
+        <?php
+            $nip= '';
+            $nama= '';
+            $alamat= '';
+            $no_hp='';
+            $id_poli= '';
+            $passwords= '';
+            if(isset($_GET['id'])) {
+                $ambil = mysqli_query($mysqli, "SELECT * FROM dokter WHERE id= '". $_GET['id'] ."'");
+                while($row = mysqli_fetch_array($ambil)) {
+                    $nip= $row['nip'];
+                    $nama= $row['nama'];
+                    $alamat= $row['alamat'];
+                    $no_hp= $row['no_hp'];
+                    $id_poli= $row['id_poli'];
+                    $passwords= $row['passwords'];
+                }
+            }
+        ?>
+            <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>" >
         <div class="mb-3">
             <label for="nip" class="form-label">NIP</label>
             <input type="number" class="form-control" name="nip" aria-describedby="emailHelp">
@@ -79,6 +122,7 @@
       <th scope="col">Alamat</th>
       <th scope="col">Nomor Handphone</th>
       <th scope="col">Poliklinik</th>
+      <th scope="col" >Aksi</th>
     </tr>
   </thead>
   <tbody>
@@ -94,6 +138,10 @@
         <td> <?php echo $dokter['alamat'] ?> </td>
         <td> <?php echo $dokter['no_hp'] ?> </td>
         <td> <?php echo $dokter['nama_poli'] ?> </td>
+        <td> 
+            <a class="btn btn-success rounded-pill px-3" href="index.php?page=manageDokter&id=<?php echo $dokter['id'] ?>">Ubah</a>
+            <a class="btn btn-danger rounded-pill px-3" href="index.php?page=manageDokter&id=<?php echo $dokter['id'] ?>&aksi=hapus">Hapus</a>
+        </td>
     </tr>
     <?php } ?>
   </tbody>
