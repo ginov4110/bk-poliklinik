@@ -35,10 +35,10 @@
     }
     if(isset($_GET['aksi'])){
         if($_GET['aksi'] == 'hapus') {
-            $hapus = mysqli_query($mysqli, "DELETE FROM dokter WHERE id = '". $_GET['id'] ."'");
+            $hapus = mysqli_query($mysqli, "DELETE FROM dokter WHERE id = '" . $_GET['id'] . "'");
         }
         echo "<script> 
-                document.location='index.php?page=manageJadwal';
+                document.location='index.php?page=manageDokter';
                 </script>";
     }
 ?>
@@ -52,6 +52,7 @@
 </head>
 <body>
     <h2 class="mt-3">Daftar Dokter</h2>
+    <?php echo $_GET['id']?>
     <!-- forms: nip, nama dokter, alamat, no hp, poli, password -->
     <form method="post">
         <?php
@@ -141,8 +142,8 @@
         <td> <?php echo $dokter['no_hp'] ?> </td>
         <td> <?php echo $dokter['nama_poli'] ?> </td>
         <td> 
-            <a class="btn btn-success rounded-pill px-3" href="index.php?page=manageDokter&id=<?php echo $dokter['id'] ?>">Ubah</a>
-            <a class="btn btn-danger rounded-pill px-3" href="index.php?page=manageDokter&id=<?php echo $dokter['id'] ?>&aksi=hapus">Hapus</a>
+            <a href="index.php?page=manageDokter&id= <?php echo $dokter['id'] ?>"><i class=" bi bi-pencil-square text-warning"></i></a>  
+            <a class="ms-3" href="index.php?page=manageDokter&id= <?php echo $dokter['id'] ?>&aksi=hapus"><i class="bi bi-trash3 text-danger "></i></a> 
         </td>
     </tr>
     <?php } ?>
