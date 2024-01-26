@@ -7,13 +7,22 @@
         exit;
     }
 
+    
     if(isset($_POST['simpan'])){
-        $tambah= mysqli_query($mysqli, "INSERT INTO poli(nama_poli, keterangan)
+        if(isset($_POST['id'])){
+            $ubah= mysqli_query($mysqli, "UPDATE poli SET
+                nama_poli= '". $_POST['nama_poli'] ."',
+                keterangan= '". $_POST['keterangan'] ."'
+                WHERE id= '". $_POST['id'] ."'
+            ");
+        } else {
+            $tambah= mysqli_query($mysqli, "INSERT INTO poli(nama_poli, keterangan)
             VALUES(
                 '". $_POST['nama_poli'] ."',
                 '". $_POST['keterangan'] ."'
-            )
-        ");
+                )
+                ");
+        }
     }
 ?>
 
@@ -27,13 +36,28 @@
 <body>
     <h2 class="mt-3">Manage Poli</h2>
     <form action="" method="post">
+        <?php
+            $nama_poli= '';
+            $keterangan= '';
+            if(isset($_GET['id'])){
+                $ambil= mysqli_query($mysqli, "SELECT * FROM poli WHERE id= '". $_GET['id'] ."'");
+                while($row= mysqli_fetch_array($ambil)){
+                    $nama_poli= $row['nama_poli'];
+                    $keterangan= $row['keterangan'];
+             
+        ?>
+            <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>" >
+        <?php
+               }
+            }
+        ?>
         <div class="mb-3">
             <label for="" class="form-label">Nama Poli</label>
-            <input type="text" class="form-control" name="nama_poli" id="">
+            <input type="text" class="form-control" name="nama_poli" value="<?php echo $nama_poli ?>"  >
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Keterangan</label>
-            <textarea class="form-control" name="keterangan" id="" rows="3"></textarea>
+            <input class="form-control" name="keterangan" value="<?php echo $keterangan ?>"  >
         </div>
         <input type="submit" name="simpan" value="Simpan" class="btn btn-primary">
     </form>
@@ -45,6 +69,7 @@
             <th scope="col">#</th>
             <th scope="col">Nama Poli</th>
             <th scope="col">Keterangan</th>
+            <th scope="col">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -58,6 +83,10 @@
                 <th scope="row"> <?php echo $no++ ?> </th>
                 <td> <?php echo $poli['nama_poli'] ?> </td>
                 <td> <?php echo $poli['keterangan'] ?> </td>
+                <td>
+                    <a href="index.php?page=managePoli&id= <?php echo $poli['id'] ?>"><i class=" bi bi-pencil-square text-warning"></i></a>  
+                    <a class="ms-3" href="index.php?page=managePoli&id= <?php echo $poli['id'] ?>&aksi=hapus"><i class="bi bi-trash3 text-danger "></i></a> 
+                </td>
             </tr>
             <?php } ?>
         </tbody>

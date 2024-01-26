@@ -30,15 +30,23 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data Master</a>
                     <ul class="dropdown-menu">
+                        <?php 
+                            if(isset($_SESSION['nip'])){      
+                        ?>
+                        <li>
+                            <a class="dropdown-item" href="index.php?page=periksa">Periksa</a>
+                        </li>
+                        <?php } ?>
+                        <?php 
+                            if(isset($_SESSION['username'])){
+                        ?>
                         <li>
                             <a class="dropdown-item" href="index.php?page=obat">Obat</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="index.php?page=periksa">Periksa</a>
-                        </li>
-                        <li>
                             <a class="dropdown-item" href="index.php?page=manageJadwal">Input Jadwal Dokter</a>
                         </li>
+                        <?php } ?>
                     </ul>
                 </li>
                 <?php 

@@ -122,8 +122,8 @@ if (isset($_GET['aksi'])) {
                     <td><?php echo $data['kemasan'] ?></td>
                     <td><?php echo $data['harga'] ?></td>
                     <td>
-                        <a class="btn btn-success rounded-pill px-3" href="index.php?page=obat&id=<?php echo $data['id'] ?>">Ubah</a>
-                        <a class="btn btn-danger rounded-pill px-3" href="index.php?page=obat&id=<?php echo $data['id'] ?>&aksi=hapus">Hapus</a>
+                        <a href="index.php?page=obat&id=<?php echo $data['id'] ?>"><i class=" bi bi-pencil-square text-warning"></i></a>  
+                        <a class="ms-3" href="index.php?page=obat&id=<?php echo $data['id'] ?>&aksi=hapus"><i class="bi bi-trash3 text-danger "></i></a> 
                     </td>
                 </tr>
             <?php

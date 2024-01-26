@@ -33,14 +33,6 @@
                 document.location='index.php?page=manageDokter';
                 </script>";
     }
-    if(isset($_GET['aksi'])){
-        if($_GET['aksi'] == 'hapus') {
-            $hapus = mysqli_query($mysqli, "DELETE FROM dokter WHERE id = '" . $_GET['id'] . "'");
-        }
-        echo "<script> 
-                document.location='index.php?page=manageDokter';
-                </script>";
-    }
 ?>
 
 <!DOCTYPE html>
@@ -133,6 +125,15 @@
         $no= 1;
         $dokters= mysqli_query($mysqli, "SELECT * FROM `dokter` inner join poli on dokter.id_poli = poli.id;");
         while($dokter= mysqli_fetch_array($dokters)){
+
+            if(isset($_GET['aksi'])){
+                if($_GET['aksi'] == 'hapus') {
+                    $hapus = mysqli_query($mysqli, "DELETE FROM dokter WHERE id = '" . $_GET['id'] . "'");
+                }
+                echo "<script> 
+                        document.location='index.php?page=manageDokter';
+                        </script>";
+            }
     ?>
     <tr>
         <th scope="row"> <?php echo $no++ ?> </th>
