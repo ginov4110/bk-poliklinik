@@ -14,10 +14,9 @@
                 passwords= '". $_POST['passwords'] ."',
                 nama= '". $_POST['nama'] ."',
                 alamat= '". $_POST['alamat'] ."',
-                no_hp= '". $_POST['no_hp'] ."',
-                id_poli= '". $_POST['id_poli'] ."',
-                id= '". $_POST['id'] ."'
-            ");
+                no_hp= '". $_POST['no_hp'] ."'
+                WHERE id= '". $_POST['id'] ."'
+                ");
         } else {
             $tambah= mysqli_query($mysqli, "INSERT INTO dokter (nip, passwords, nama, alamat, no_hp, id_poli)
                 VALUES(
@@ -31,7 +30,7 @@
             ");
         }
         echo "<script> 
-                document.location='index.php?page=obat';
+                document.location='index.php?page=manageDokter';
                 </script>";
     }
     if(isset($_GET['aksi'])){
@@ -71,25 +70,28 @@
                     $no_hp= $row['no_hp'];
                     $id_poli= $row['id_poli'];
                     $passwords= $row['passwords'];
-                }
+             
+        ?>
+            <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+        <?php
+               }
             }
         ?>
-            <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>" >
         <div class="mb-3">
             <label for="nip" class="form-label">NIP</label>
-            <input type="number" class="form-control" name="nip" aria-describedby="emailHelp">
+            <input type="number" class="form-control" name="nip" aria-describedby="emailHelp" value="<?php echo $nip  ?>" >
         </div>
         <div class="mb-3">
             <label for="nama" class="form-label">Nama Dokter</label>
-            <input type="text" class="form-control" name="nama" aria-describedby="emailHelp">
+            <input type="text" class="form-control" name="nama" aria-describedby="emailHelp" value="<?php echo $nama  ?>" >
         </div>
         <div class="mb-3">
             <label for="alamat" class="form-label">Alamat</label>
-            <textarea class="form-control" name="alamat" rows="3"></textarea>
+            <input class="form-control" name="alamat" rows="3" value="<?php echo $alamat  ?>" >
         </div>
         <div class="mb-3">
             <label for="no_hp" class="form-label">Nomor HP</label>
-            <input type="number" class="form-control" name="no_hp" aria-describedby="emailHelp">
+            <input type="number" class="form-control" name="no_hp" aria-describedby="emailHelp" value="<?php echo $no_hp  ?>">
         </div>
         <div class="mb-3">
             <label for="id_poli" class="form-label">Pilih Poli</label>
@@ -101,13 +103,13 @@
                     while($poli= mysqli_fetch_array($polis)){
                         $selectedPoli= 'selected="selected"';
                 ?>
-                <option value="<?php echo $poli['id'] ?>" <?php echo $selectedPoli ?>><?php echo $poli['nama_poli'] ?></option>
+                <option value="<?php echo $poli['id']?>" <?php echo $selectedPoli ?>><?php echo $poli['nama_poli'] ?></option>
                 <?php } ?>
             </select>
         </div>
         <div class="mb-3">
             <label for="passwords" class="form-label">Password</label>
-            <input type="password" class="form-control" name="passwords"/>
+            <input type="password" class="form-control" name="passwords" value="<?php echo $passwords  ?>" />
         </div>
         <input class="btn btn-primary" type="submit" name="simpan" value="Tambah">
     </form>
@@ -116,7 +118,7 @@
     <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">No</th>
       <th scope="col">NIP</th>
       <th scope="col">Nama Dokter</th>
       <th scope="col">Alamat</th>
